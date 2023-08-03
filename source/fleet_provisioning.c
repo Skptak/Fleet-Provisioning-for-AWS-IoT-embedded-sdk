@@ -4,22 +4,23 @@
  *
  * SPDX-License-Identifier: MIT
  *
- * Permission is hereby granted, free of charge, to any person obtaining a copy of
- * this software and associated documentation files (the "Software"), to deal in
- * the Software without restriction, including without limitation the rights to
- * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
- * the Software, and to permit persons to whom the Software is furnished to do so,
- * subject to the following conditions:
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
  *
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
- * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
- * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
- * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
- * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
  */
 
 /**
@@ -48,7 +49,8 @@ typedef enum
 } TopicSuffix_t;
 
 /**
- * @brief Identifier for which of the topics in each Fleet Provisioning MQTT API.
+ * @brief Identifier for which of the topics in each Fleet Provisioning MQTT
+ * API.
  */
 typedef enum
 {
@@ -71,9 +73,10 @@ typedef enum
  *
  * @return the template length for the given RegisterThing topic.
  */
-static uint16_t getRegisterThingTopicLength( uint16_t templateNameLength,
-                                             FleetProvisioningFormat_t format,
-                                             FleetProvisioningApiTopics_t topic );
+static uint16_t getRegisterThingTopicLength(
+    uint16_t templateNameLength,
+    FleetProvisioningFormat_t format,
+    FleetProvisioningApiTopics_t topic );
 
 /**
  * @brief Write the given piece of the topic to the remaining buffer and advance
@@ -105,12 +108,13 @@ static void writeTopicFragmentAndAdvance( char ** pBufferCursor,
  * @return FleetProvisioningSuccess if no errors are found with the parameters;
  * FleetProvisioningBadParameter otherwise.
  */
-static FleetProvisioningStatus_t GetRegisterThingTopicCheckParams( const char * pTopicBuffer,
-                                                                   FleetProvisioningFormat_t format,
-                                                                   FleetProvisioningApiTopics_t topic,
-                                                                   const char * pTemplateName,
-                                                                   uint16_t templateNameLength,
-                                                                   const uint16_t * pOutLength );
+static FleetProvisioningStatus_t GetRegisterThingTopicCheckParams(
+    const char * pTopicBuffer,
+    FleetProvisioningFormat_t format,
+    FleetProvisioningApiTopics_t topic,
+    const char * pTemplateName,
+    uint16_t templateNameLength,
+    const uint16_t * pOutLength );
 
 /**
  * @brief Match the suffix from the remaining topic string and return the
@@ -151,8 +155,9 @@ static TopicFormatSuffix_t parseTopicFormatSuffix( const char * pRemainingTopic,
  *     Fleet Provisioning CreateCertificateFromCsr topic, else
  *     FleetProvisioningInvalidTopic.
  */
-static FleetProvisioningTopic_t parseCreateCertificateFromCsrTopic( const char * pTopic,
-                                                                    uint16_t topicLength );
+static FleetProvisioningTopic_t parseCreateCertificateFromCsrTopic(
+    const char * pTopic,
+    uint16_t topicLength );
 
 /**
  * @brief Match a topic string with the CreateKeysAndCertificate topics.
@@ -164,8 +169,9 @@ static FleetProvisioningTopic_t parseCreateCertificateFromCsrTopic( const char *
  *     Fleet Provisioning CreateKeysAndCertificate topic, else
  *     FleetProvisioningInvalidTopic.
  */
-static FleetProvisioningTopic_t parseCreateKeysAndCertificateTopic( const char * pTopic,
-                                                                    uint16_t topicLength );
+static FleetProvisioningTopic_t parseCreateKeysAndCertificateTopic(
+    const char * pTopic,
+    uint16_t topicLength );
 
 /**
  * @brief Match a topic string with the RegisterThing topics.
@@ -205,20 +211,23 @@ static FleetProvisioningStatus_t consumeIfMatch( const char ** pBufferCursor,
  * The end of thing name is marked by a forward slash. A zero length thing name
  * is not valid.
  *
- * This function extracts the same template name from the following topic strings:
+ * This function extracts the same template name from the following topic
+ * strings:
  *   - $aws/provisioning-templates/TEMPLATE_NAME/provision/json/accepted
  *   - $aws/provisioning-templates/TEMPLATE_NAME
  * The second topic is not a valid Fleet Provisioning topic and the matching
  * will fail when we try to match the bridge part.
  *
  * @param[in,out] pTopicCursor Pointer to the remaining topic string.
- * @param[in,out] pRemainingLength Pointer to the length of the remaining topic string.
+ * @param[in,out] pRemainingLength Pointer to the length of the remaining topic
+ * string.
  *
  * @return FleetProvisioningSuccess if a valid template name is skipped over;
  * FleetProvisioningNoMatch otherwise.
  */
-static FleetProvisioningStatus_t consumeTemplateName( const char ** pTopicCursor,
-                                                      uint16_t * pRemainingLength );
+static FleetProvisioningStatus_t consumeTemplateName(
+    const char ** pTopicCursor,
+    uint16_t * pRemainingLength );
 /*-----------------------------------------------------------*/
 
 static uint16_t getRegisterThingTopicLength( uint16_t templateNameLength,
@@ -229,11 +238,12 @@ static uint16_t getRegisterThingTopicLength( uint16_t templateNameLength,
 
     assert( ( templateNameLength != 0U ) &&
             ( templateNameLength <= FP_TEMPLATENAME_MAX_LENGTH ) );
-    assert( ( format == FleetProvisioningJson ) || ( format == FleetProvisioningCbor ) );
-    assert( ( topic >= FleetProvisioningPublish ) && ( topic <= FleetProvisioningRejected ) );
+    assert( ( format == FleetProvisioningJson ) ||
+            ( format == FleetProvisioningCbor ) );
+    assert( ( topic >= FleetProvisioningPublish ) &&
+            ( topic <= FleetProvisioningRejected ) );
 
-    topicLength = FP_REGISTER_API_LENGTH_PREFIX +
-                  templateNameLength +
+    topicLength = FP_REGISTER_API_LENGTH_PREFIX + templateNameLength +
                   FP_REGISTER_API_LENGTH_BRIDGE;
 
     if( format == FleetProvisioningJson )
@@ -276,35 +286,36 @@ static void writeTopicFragmentAndAdvance( char ** pBufferCursor,
 }
 /*-----------------------------------------------------------*/
 
-static FleetProvisioningStatus_t GetRegisterThingTopicCheckParams( const char * pTopicBuffer,
-                                                                   FleetProvisioningFormat_t format,
-                                                                   FleetProvisioningApiTopics_t topic,
-                                                                   const char * pTemplateName,
-                                                                   uint16_t templateNameLength,
-                                                                   const uint16_t * pOutLength )
+static FleetProvisioningStatus_t GetRegisterThingTopicCheckParams(
+    const char * pTopicBuffer,
+    FleetProvisioningFormat_t format,
+    FleetProvisioningApiTopics_t topic,
+    const char * pTemplateName,
+    uint16_t templateNameLength,
+    const uint16_t * pOutLength )
 {
     FleetProvisioningStatus_t ret = FleetProvisioningError;
 
-    if( ( pTopicBuffer == NULL ) ||
-        ( format < FleetProvisioningJson ) ||
+    if( ( pTopicBuffer == NULL ) || ( format < FleetProvisioningJson ) ||
         ( format > FleetProvisioningCbor ) ||
         ( topic < FleetProvisioningPublish ) ||
-        ( topic > FleetProvisioningRejected ) ||
-        ( pTemplateName == NULL ) ||
+        ( topic > FleetProvisioningRejected ) || ( pTemplateName == NULL ) ||
         ( templateNameLength == 0U ) ||
         ( templateNameLength > FP_TEMPLATENAME_MAX_LENGTH ) ||
         ( pOutLength == NULL ) )
     {
         ret = FleetProvisioningBadParameter;
 
-        LogError( ( "Invalid input parameter. pTopicBuffer: %p, format: %d, topic: %d,"
-                    " pTemplateName: %p, templateNameLength: %u, pOutLength: %p.",
-                    ( const void * ) pTopicBuffer,
-                    ( int ) format,
-                    ( int ) topic,
-                    ( const void * ) pTemplateName,
-                    ( unsigned int ) templateNameLength,
-                    ( const void * ) pOutLength ) );
+        LogError(
+            ( "Invalid input parameter. pTopicBuffer: %p, format: %d, topic: "
+              "%d,"
+              " pTemplateName: %p, templateNameLength: %u, pOutLength: %p.",
+              ( const void * ) pTopicBuffer,
+              ( int ) format,
+              ( int ) topic,
+              ( const void * ) pTemplateName,
+              ( unsigned int ) templateNameLength,
+              ( const void * ) pOutLength ) );
     }
     else
     {
@@ -378,16 +389,14 @@ static TopicFormatSuffix_t parseTopicFormatSuffix( const char * pRemainingTopic,
                                                    uint16_t remainingLength )
 {
     /* Table of JSON format and suffixes in same order as TopicSuffix_t. */
-    static const TopicFormatSuffix_t jsonSuffixes[] =
-    {
+    static const TopicFormatSuffix_t jsonSuffixes[] = {
         TopicJsonPublish,
         TopicJsonAccepted,
         TopicJsonRejected,
         TopicInvalidFormatSuffix
     };
     /* Table of CBOR format and suffixes in same order as TopicSuffix_t. */
-    static const TopicFormatSuffix_t cborSuffixes[] =
-    {
+    static const TopicFormatSuffix_t cborSuffixes[] = {
         TopicCborPublish,
         TopicCborAccepted,
         TopicCborRejected,
@@ -434,12 +443,12 @@ static TopicFormatSuffix_t parseTopicFormatSuffix( const char * pRemainingTopic,
 }
 /*-----------------------------------------------------------*/
 
-static FleetProvisioningTopic_t parseCreateCertificateFromCsrTopic( const char * pTopic,
-                                                                    uint16_t topicLength )
+static FleetProvisioningTopic_t parseCreateCertificateFromCsrTopic(
+    const char * pTopic,
+    uint16_t topicLength )
 {
     /* Table of topics in the same order as TopicFormatSuffix_t. */
-    static const FleetProvisioningTopic_t createCertificateFromCsrApi[] =
-    {
+    static const FleetProvisioningTopic_t createCertificateFromCsrApi[] = {
         FleetProvJsonCreateCertFromCsrPublish,
         FleetProvJsonCreateCertFromCsrAccepted,
         FleetProvJsonCreateCertFromCsrRejected,
@@ -473,12 +482,12 @@ static FleetProvisioningTopic_t parseCreateCertificateFromCsrTopic( const char *
 }
 /*-----------------------------------------------------------*/
 
-static FleetProvisioningTopic_t parseCreateKeysAndCertificateTopic( const char * pTopic,
-                                                                    uint16_t topicLength )
+static FleetProvisioningTopic_t parseCreateKeysAndCertificateTopic(
+    const char * pTopic,
+    uint16_t topicLength )
 {
     /* Table of topics in the same order as TopicFormatSuffix_t. */
-    static const FleetProvisioningTopic_t createKeysAndCertificateApi[] =
-    {
+    static const FleetProvisioningTopic_t createKeysAndCertificateApi[] = {
         FleetProvJsonCreateKeysAndCertPublish,
         FleetProvJsonCreateKeysAndCertAccepted,
         FleetProvJsonCreateKeysAndCertRejected,
@@ -516,14 +525,10 @@ static FleetProvisioningTopic_t parseRegisterThingTopic( const char * pTopic,
                                                          uint16_t topicLength )
 {
     /* Table of topics in the same order as TopicFormatSuffix_t. */
-    static const FleetProvisioningTopic_t registerThingApi[] =
-    {
-        FleetProvJsonRegisterThingPublish,
-        FleetProvJsonRegisterThingAccepted,
-        FleetProvJsonRegisterThingRejected,
-        FleetProvCborRegisterThingPublish,
-        FleetProvCborRegisterThingAccepted,
-        FleetProvCborRegisterThingRejected,
+    static const FleetProvisioningTopic_t registerThingApi[] = {
+        FleetProvJsonRegisterThingPublish,  FleetProvJsonRegisterThingAccepted,
+        FleetProvJsonRegisterThingRejected, FleetProvCborRegisterThingPublish,
+        FleetProvCborRegisterThingAccepted, FleetProvCborRegisterThingRejected,
         FleetProvisioningInvalidTopic
     };
     FleetProvisioningTopic_t ret = FleetProvisioningInvalidTopic;
@@ -543,8 +548,7 @@ static FleetProvisioningTopic_t parseRegisterThingTopic( const char * pTopic,
     if( status == FleetProvisioningSuccess )
     {
         /* Skip template name */
-        status = consumeTemplateName( &pTopicCursor,
-                                      &cursorLength );
+        status = consumeTemplateName( &pTopicCursor, &cursorLength );
     }
 
     if( status == FleetProvisioningSuccess )
@@ -586,9 +590,7 @@ static FleetProvisioningStatus_t consumeIfMatch( const char ** pBufferCursor,
     }
     else
     {
-        cmpVal = strncmp( *pBufferCursor,
-                          matchString,
-                          ( size_t ) matchLength );
+        cmpVal = strncmp( *pBufferCursor, matchString, ( size_t ) matchLength );
 
         if( cmpVal != 0 )
         {
@@ -606,8 +608,9 @@ static FleetProvisioningStatus_t consumeIfMatch( const char ** pBufferCursor,
 }
 /*-----------------------------------------------------------*/
 
-static FleetProvisioningStatus_t consumeTemplateName( const char ** pTopicCursor,
-                                                      uint16_t * pRemainingLength )
+static FleetProvisioningStatus_t consumeTemplateName(
+    const char ** pTopicCursor,
+    uint16_t * pRemainingLength )
 {
     FleetProvisioningStatus_t ret = FleetProvisioningNoMatch;
     uint16_t i = 0U;
@@ -637,13 +640,14 @@ static FleetProvisioningStatus_t consumeTemplateName( const char ** pTopicCursor
 }
 /*-----------------------------------------------------------*/
 
-FleetProvisioningStatus_t FleetProvisioning_GetRegisterThingTopic( char * pTopicBuffer,
-                                                                   uint16_t bufferLength,
-                                                                   FleetProvisioningFormat_t format,
-                                                                   FleetProvisioningApiTopics_t topic,
-                                                                   const char * pTemplateName,
-                                                                   uint16_t templateNameLength,
-                                                                   uint16_t * pOutLength )
+FleetProvisioningStatus_t FleetProvisioning_GetRegisterThingTopic(
+    char * pTopicBuffer,
+    uint16_t bufferLength,
+    FleetProvisioningFormat_t format,
+    FleetProvisioningApiTopics_t topic,
+    const char * pTemplateName,
+    uint16_t templateNameLength,
+    uint16_t * pOutLength )
 {
     FleetProvisioningStatus_t status = FleetProvisioningError;
     uint16_t topicLength = 0U;
@@ -658,7 +662,9 @@ FleetProvisioningStatus_t FleetProvisioning_GetRegisterThingTopic( char * pTopic
 
     if( status == FleetProvisioningSuccess )
     {
-        topicLength = getRegisterThingTopicLength( templateNameLength, format, topic );
+        topicLength = getRegisterThingTopicLength( templateNameLength,
+                                                   format,
+                                                   topic );
 
         if( bufferLength < topicLength )
         {
@@ -728,9 +734,10 @@ FleetProvisioningStatus_t FleetProvisioning_GetRegisterThingTopic( char * pTopic
 }
 /*-----------------------------------------------------------*/
 
-FleetProvisioningStatus_t FleetProvisioning_MatchTopic( const char * pTopic,
-                                                        uint16_t topicLength,
-                                                        FleetProvisioningTopic_t * pOutApi )
+FleetProvisioningStatus_t FleetProvisioning_MatchTopic(
+    const char * pTopic,
+    uint16_t topicLength,
+    FleetProvisioningTopic_t * pOutApi )
 {
     FleetProvisioningStatus_t ret = FleetProvisioningNoMatch;
 
@@ -747,7 +754,8 @@ FleetProvisioningStatus_t FleetProvisioning_MatchTopic( const char * pTopic,
 
         if( *pOutApi == FleetProvisioningInvalidTopic )
         {
-            *pOutApi = parseCreateKeysAndCertificateTopic( pTopic, topicLength );
+            *pOutApi = parseCreateKeysAndCertificateTopic( pTopic,
+                                                           topicLength );
         }
 
         if( *pOutApi == FleetProvisioningInvalidTopic )
