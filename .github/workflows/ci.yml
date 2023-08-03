@@ -101,9 +101,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-            submodules: 'recursive'
+          submodules: "recursive"
       - name: Measure sizes
         uses: Skptak/CI-CD-Github-Actions/memory_statistics@main
         with:
-            config: .github/memory_statistics_config.json
-            check_against: docs/doxygen/include/size_table.md
+          config: .github/memory_statistics_config.json
+          check_against: docs/doxygen/include/size_table.md
