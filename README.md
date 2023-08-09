@@ -1,5 +1,7 @@
 # AWS IoT Fleet Provisioning Library
 
+**[API Documentation Pages for current and previous releases of this library can be found here](https://aws.github.io/Fleet-Provisioning-for-AWS-IoT-embedded-sdk/)**
+
 The Fleet Provisioning library enables you to provision IoT devices without
 device certificates using the [Fleet Provisioning feature of AWS IoT Core][a1].
 For an overview of provisioning options available, see [Device
